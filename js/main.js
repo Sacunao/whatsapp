@@ -2,11 +2,21 @@
     
     var entrada = document.getElementById("input");
     var contenedorMensajes = document.getElementById("chat");
+    var nombres = document.querySelectorAll(".w-recent-chats li");
     
     window.addEventListener("load", cargarPagina);
     
     function cargarPagina(){
         entrada.addEventListener("keyup", enviandoMensaje);
+
+        for(var i = 0; i < nombres.length; i++){
+            nombres[i].addEventListener("click", cambiandoUsuario);
+        }
+    }
+
+    function cambiandoUsuario(e){
+        e.preventDefault();
+        console.log("hola");
     }
     
     function enviandoMensaje(e){
@@ -24,7 +34,7 @@
     
     function creandoMensaje(event){
         event.preventDefault;
-        var texto = entrada.value;
+        var texto = entrada.value.trim();
 
         var contenedor = entrada.parentElement.parentElement.parentElement.parentElement;
         var chat = contenedor.children[1];
@@ -47,6 +57,16 @@
         tiempo.innerHTML = time(); 
     };
 
+    function time(){
+        var fecha = new Date();
+        var hora = fecha.getHours();
+        var minuto = fecha.getMinutes();
+            if (minuto < 10) {
+                minuto = "0" + minuto;
+            }
+        var horaImprimible = hora + " : " + minuto;
+        return horaImprimible;
+    }
     //Creando confunciones reciclables
     // function creandoMensaje(e){
     //     e.preventDefault;
@@ -77,14 +97,5 @@
     //     }
     // };
 
-    function time(){
-        var fecha = new Date();
-        var hora = fecha.getHours();
-        var minuto = fecha.getMinutes();
-            if (minuto < 10) {
-                minuto = "0" + minuto;
-            }
-        var horaImprimible = hora + " : " + minuto;
-        return horaImprimible;
-    }
+    
 })();
